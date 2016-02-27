@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- This is the first facade which didn't use any database and just stored everything in memory. 
+<bean id="counterpointOperations" class="counterpointOperations.BasicCounterpointOperationsFacade">
+	<constructor-arg><ref bean="counterpointOperationsUI"/></constructor-arg>
+</bean>-->
+
+<bean id="compositionManager" class="composition.CompositionManager"/>
+
+<bean id="applicationController" class="controller.ApplicationController">
+	<constructor-arg ref="applicationModel"/>
+	<constructor-arg ref="applicationView"/>
+	<constructor-arg ref="counterpointOperations"/>
+	<constructor-arg ref="musicPlayerFacade"/>
+<!-- 	<property name="compositionManager" ref="compositionManager"/> -->
+</bean>
+
+<bean id="applicationModel" class="model.ApplicationModel"></bean>
+
+<bean id="applicationView" class="userInterface.UserInterface"/>
+
+<bean id="counterpointOperations" class="counterpointOperations.facades.DummyCounterpointOperationsFacade"/>
+
+<!-- 
+<bean id="counterpointOperations" class="counterpointOperations.facades.MemoryFacades.BasicCounterpointOperationsFacade">
+	<constructor-arg ref="counterpointOperationsUI"/>
+</bean>
+<bean id="counterpointOperationsUI" class="userInterface.counterpointUI.CounterpointOperationsUI"/>
+ -->
+
+<bean id="musicPlayerFacade" class="reynolds.lawrence.CompositionPlayback.soundGeneration.MusicPlayerFacade"/>
+
+</beans>
